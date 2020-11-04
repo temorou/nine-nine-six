@@ -19,6 +19,6 @@ run({
   let form =  login.form 
   form.userName = 'xx' 
   form.password = 'xx' 
-  login.handleSubmit() 
+  login.login() 
 })
 ```
