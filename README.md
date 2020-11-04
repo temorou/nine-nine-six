@@ -5,12 +5,14 @@
 #执行例子
 
 const {run} = require('../../src')
+
 const fs = require('fs')
 
 run({
   url:'http://localhost:8080',
   chromeUrl:'C:\\Users\\username\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe'
 },function ({page,route,router,store}) {
+
   const win = page.getGlobal()
   win.document.body.onclick=(e)=>{
     win.console.log(e,{e},win)
@@ -18,17 +20,20 @@ run({
       name: 'Login'
     })
   }
+  
   let login = page.findVueNode({
     tag:'Login'
   })
+  
   let form =  login.form
   form.userName = 'xx'
   form.password = 'xx'
   console.log(form)
-
+  
   let input = login.findVueNode({
     css:'Input'
   })
+  
 
   console.log(input.modelValue)
   login.handleSubmit()
