@@ -1,46 +1,24 @@
 # nine-nine-six
 
-用proxy，fibers对自动化测试工具puppeteer封装
+基于proxy，fibers，puppeteer
+把对vue自动化测试的代码提取了一遍
+##安装
+npm i -s nine-nine-six
 
-#执行例子
-
-const {run} = require('../../src')
-
-const fs = require('fs')
+##登录执行例子
+```
+const {run} = require('nine-nine-six')
 
 run({
   url:'http://localhost:8080',
-  chromeUrl:'C:\\Users\\username\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe'
-},function ({page,route,router,store}) {
-
-  const win = page.getGlobal()
-  win.document.body.onclick=(e)=>{
-    win.console.log(e,{e},win)
-    router.push({
-      name: 'Login'
-    })
-  }
-  
+  chromeUrl:'C:\\Users\\chrome.exe'
+},function ({window,page,route,router,store}) {
   let login = page.findVueNode({
     tag:'Login'
   })
-  
-  let form =  login.form
-  form.userName = 'xx'
-  form.password = 'xx'
-  console.log(form)
-  
-  let input = login.findVueNode({
-    css:'Input'
-  })
-  
-
-  console.log(input.modelValue)
-  login.handleSubmit()
-  console.log(login.loginError)
-  if(login.loginError){
-    fs.writeFile('./examples/test/test.log', 'loginError',()=>{})
-  }else{
-    fs.writeFile('./examples/test/test.log','loginSuccess',()=>{})
-  }
+  let form =  login.form 
+  form.userName = 'xx' 
+  form.password = 'xx' 
+  login.handleSubmit() 
 })
+```
