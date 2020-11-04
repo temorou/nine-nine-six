@@ -1,7 +1,7 @@
 # nine-nine-six
 
-基于proxy，fibers，puppeteer
-把对vue自动化测试的代码提取了一遍
+基于proxy，fibers，puppeteer把对vue自动化测试的代码提取了一遍
+
 ##安装
 npm i -s nine-nine-six
 
