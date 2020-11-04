@@ -1,0 +1,20 @@
+{
+  "name": "nine-nine-six",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node --inspect ./examples/test/test.js",
+    "test": "node --inspect ./tests/index.js",
+    "doc": "./node_modules/.bin/jsdoc -c conf.json"
+  },
+  "author": "1115679568@qq.com",
+  "license": "ISC",
+  "dependencies": {
+    "fibers": "^5.0.0",
+    "puppeteer": "5.2.1"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.6"
+  }
+}

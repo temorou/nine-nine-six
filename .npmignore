@@ -1,0 +1,10 @@
+.idea
+.vscode/*
+.DS_Store
+node_modules
+*.log
+.vscode
+examples
+out
+rubbish
+tests
