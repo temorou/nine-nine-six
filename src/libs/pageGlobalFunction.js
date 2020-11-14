@@ -32,7 +32,7 @@ function initPageGlobalFunctions(){
    * @returns {boolean}
    */
   function isNewVue() {
-    return [].slice.call(document.body.querySelectorAll('*')).some(e=>e.__vue_app__&&/^3/.test(e.__vue_app__.version))
+    return [].slice.call(document.body.querySelectorAll('*')||[]).some(e=>e.__vue_app__&&/^3/.test(e.__vue_app__.version))
   }
 
   /**

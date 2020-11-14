@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const config = require('../libs/config');
 const initPageGlobalFunctions = require('../libs/pageGlobalFunction');
-const {findVueNodes,findVueNode,getProp,waitForResponse,getAsyncMethodResult,buildFiberObject} = require('../libs/util');
+const {findVueNodes,findVueNode,getProp,getHandleValue,waitForResponse,getAsyncMethodResult,buildFiberObject} = require('../libs/util');
 const {buildProxy} = require('../proxy/proxyUtil')
 const Fiber = require('fibers');
 class Page {
@@ -30,6 +30,7 @@ class Page {
       }
       urls.splice(urls.lastIndexOf(url) -1,1)
     })
+
   }
 
   /**
@@ -55,15 +56,19 @@ class Page {
       executablePath: chromeUrl,
       headless:false,
       defaultViewport:null,
-      args: ['--start-maximized',]
+      timeout:0,
+      args: ['--start-maximized',' --disable-features=site-per-process']
     })
     let page = await browser.newPage();
+    await page.setRequestInterception(true);
     page.on('load',()=>{
       page.evaluate(initPageGlobalFunctions)
     })
     let that = new Page({page})
     page.__cacheMethod = {}
-    await page.goto(url)
+    await page.goto(url,{
+      timeout:0
+    })
     await page.exposeFunction('__callCacheMethod',(name,...args)=>{
       let res ;
       Fiber(function() {
@@ -93,6 +98,21 @@ class Page {
     return buildProxy({value,type,jsHandle,page:this.page})
   }
 
+  getFrames(url){
+    let frames = getAsyncMethodResult(this.page.frames,{},this.page)
+    return frames.filter(f=>url?f.url().includes(url):true).map(frame=>{
+      debugger
+      getAsyncMethodResult(frame.evaluate,[initPageGlobalFunctions],frame)
+      debugger
+      let {value,type,jsHandle} = getAsyncMethodResult(getProp,{page:frame})
+      debugger
+      return buildProxy({value,type,jsHandle,page:frame})
+    })
+  }
+
+  getFrame(url){
+    return this.getFrames(url)[0]
+  }
   getCommonComponent(){
     let g = this.getGlobal()
     return g.__initPageGlobalFunctions.getCommonComponent()

@@ -343,6 +343,7 @@ module.exports = {
   setProp,
   doMethod,
   getLength,
+  getHandleValue,
   getValue,
   findVueNode,
   callFn,
