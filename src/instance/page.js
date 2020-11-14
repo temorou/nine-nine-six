@@ -11,6 +11,7 @@ class Page {
     page.urls = urls
     page.on('request',request=>{
       let url = request.url()
+      request.continue();
       if(!config.requestUrlRegexp.test(url)){
         return
       }
