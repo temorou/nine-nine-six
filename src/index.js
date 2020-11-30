@@ -1,6 +1,6 @@
 const Page = require('./instance/page')
 const Fiber = require('fibers')
-const common = require('./libs/common')
+const util = require('./util')
 
 /**
  *
@@ -20,5 +20,5 @@ function run(config={},callback){
 	}).run()
 }
 
-module.exports = {run,...common,Fiber}
+module.exports = {run,Fiber,...util}
 

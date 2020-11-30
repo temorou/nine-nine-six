@@ -1,6 +1,6 @@
 const Fiber = require('fibers')
 const {JSHandle} = require('puppeteer/lib/cjs/puppeteer/common/JSHandle.js')
-const {sleep,random} = require('./common')
+const {sleep,random} = require('../util/common')
 const {timeout} = require('./config')
 
 /**

@@ -24,7 +24,7 @@ const DEFAULT_FORMATS = {
 	timerange: 'HH:mm:ss',
 	daterange: 'yyyy-MM-dd',
 	datetimerange: 'yyyy-MM-dd HH:mm:ss'
-};
+}
 function extend(...args){
 	args.forEach(arg=>{
 		if(Array.isArray(arg)){
