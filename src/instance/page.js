@@ -89,7 +89,9 @@ class Page {
 
 	async goto(url){
 		this.clearCache()
-		await this.page.goto(url)
+		await this.page.goto(url,{
+			timeout:0
+		})
 		//    getAsyncMethodResult(this.page.goto,url,this.page)
 	}
 	/**

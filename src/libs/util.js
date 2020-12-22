@@ -194,12 +194,16 @@ function getAsyncMethodResult(fun,args,target){
 	if(!Array.isArray(args)){
 		args = [args]
 	}
+	let result = null
 	if(Object.prototype.toString.call(fun) != '[object AsyncFunction]'){
-		return fun.apply(target,args)
+		let result =  fun.apply(target,args)
+		if(!(result&&typeof result.then=='function')){
+			return result
+		}
 	}
 	let res
-	let f = Fiber.current
-	fun.apply(target,args).then(data=>{
+	let f = Fiber.current;
+	(result||fun.apply(target,args)).then(data=>{
 		res = data
 		f.run()
 	})
